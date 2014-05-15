@@ -2,7 +2,7 @@
 
 import json
 from jsonschema import validate
-
+import jsonschema.exceptions
 
 class Port(object):
     def __init__(self, name):
@@ -152,7 +152,11 @@ def validation(args):
             schema = json.load(f)
 
         with open(args.json, 'r') as f:
-            validate(json.load(f), schema)
+            try:
+                validate(json.load(f), schema)
+            except jsonschema.exceptions.ValidationError:
+                raise
+        print "Validation succeeded."
 
 
 def zephyrus(args):
