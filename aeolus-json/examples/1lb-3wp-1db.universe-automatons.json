@@ -1,0 +1,85 @@
+{
+    "version":1,
+    "component_types": [
+	{
+	    "name"     : "HTTP-proxy-load-balancer",
+	    "states":[
+		{
+		    "name":"Initial",
+		    "initial":true,
+		    "successors":[
+			"Active"
+		    ]
+		    
+		},
+		{
+		    "name":"Active",
+		    "provide":{
+			"@start":1
+		    },
+		    "require":{
+			"@get_website":3
+		    }
+		}
+	    ],
+	    "consume":{
+		"ram":62
+	    }
+	},
+	{
+	    "name"     : "Wordpress",
+	    "states":[
+		{
+		    "name":"Initial",
+		    "initial":true,
+		    "successors":[
+			"Active"
+		    ]
+		    
+		},
+		{
+		    "name":"Active",
+		    "provide":{
+			"@get_website":1
+		    },
+		    "require":{
+			"@addDatabase":1
+		    }
+		}
+	    ]
+	},
+
+	{
+	    "name"     : "MySQL",
+	    "states":[
+		{
+		    "name":"Initial",
+		    "initial":true,
+		    "successors":[
+			"Active"
+		    ]
+		    
+		},
+		{
+		    "name":"Active",
+		    "provide":{
+			"@addDatabase":3
+		    }
+		    
+		}
+	    ]
+	}
+    ],
+    "implementation": {
+	"HTTP-proxy-load-balancer":
+	[{"repository":"mbs",
+	  "package": "varnish (= 3.0.2-2.mbs1)"}],
+	"Wordpress":
+	[{"repository":"mbs",
+	  "package": "wordpress (= 3.3.2-3.mbs1)"}],
+	"MySQL":
+	[{"repository":"mbs",
+	  "package": "mysql-MariaDB (= 5.5.23-5.mbs1)"}]
+    }
+}
+
