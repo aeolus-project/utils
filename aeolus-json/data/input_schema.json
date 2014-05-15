@@ -1,0 +1,215 @@
+{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"title":"AeolusFormatSchema",
+	"description":"Input JSON schema for Aeolus Universe.",
+	"type":"object",
+	"properties":{
+		"version":{
+			"type":"integer",
+			"description":"Version number."
+		},
+		"component_types":{
+			"description":"List of component types.",
+			"type":"array",
+			"items":{
+				"type":"object",
+				"properties":{
+					"name":{
+						"type":"string",
+						"description":"Name of the component type."
+					},
+					"consume":{
+						"type":"object",
+						"description":"Mapping (resource name -> consume arity) of resources consumed by the component type.",
+						"additionalProperties":{
+							"description":"The consume arity.",
+							"type":"integer"
+						}
+						
+					},
+					"states":{
+						"type":"array",
+						"minItems":1,
+						"uniqueItems":true,
+						"description":"List of the states of the component type.",
+						"items":{
+							"type":"object",
+							"properties":{
+								"name":{
+									"type":"string",
+									"description":"State name."
+								},
+								"initial":{
+									"type":"boolean",
+									"description":"Initial state (default = false if not present)."
+								},
+								"provide":{
+									"type":"object",
+									"description":"Mapping (port name -> provide arity).",
+									"additionalProperties":{
+										"oneOf":[
+											{
+												"description":"The arity of the provided port (finite).",
+												"type":"integer"
+											},
+											{
+												"description":"The arity of the provided port (infinite).",
+												"enum":[
+													"inf", "infinity", "infinite",
+													"Inf", "Infinity", "Infinite",
+													"INF", "INFINITY", "INFINITE"
+												]
+												
+											}
+											
+										]
+										
+									}
+									
+								},
+								"require":{
+									"type":"object",
+									"description":"Mapping (port -> require arity).",
+									"additionalProperties":{
+										"description":"The arity of the required port.",
+										"type":"integer"
+									}
+									
+								},
+								"conflict":{
+									"type":"array",
+									"uniqueItems":true,
+									"items":{
+										"description":"Conflict ports.",
+										"type":"string"
+									}
+									
+								},
+								"successors":{
+									"type":"array",
+									"uniqueItems":true,
+									"items":{
+										"type":"string",
+										"description":"Successor states."
+									}
+									
+								}
+								
+							},
+							"required":[
+								"name"
+							]
+							
+						}
+						
+					}
+					
+				},
+				"required":[
+					"name",
+					"states"
+				]
+				
+			},
+			"minItems":1,
+			"uniqueItems":true
+		},
+		"implementation":{
+			"type":"object",
+			"uniqueItems":true,
+			"minItems":1,
+			"description":"Implementation mapping between components and packages belonging to a repository.",
+			"additionalProperties":{
+				"type":"array",
+				"description":"List of repository & package list pairs (dijunciton of possible implementations).",
+				"items":{
+					"type":"object",
+					"properties":{
+						"repository":{
+							"type":"string"
+						},
+						"package":{
+							"type":"string"
+						}
+						
+					},
+					"required":[
+						"repository",
+						"package"
+					]
+					
+				}
+				
+			}
+			
+		},
+		"repositories":{
+			"type":"array",
+			"uniqueItems":true,
+			"minItems":1,
+			"description":"Repositories description.",
+			"items":{
+				"type":"object",
+				"properties":{
+					"name":{
+						"type":"string"
+					},
+					"packages":{
+						"type":"array",
+						"uniqueItems":true,
+						"minItems":1,
+						"items":{
+							"type":"object",
+							"properties":{
+								"name":{
+									"type":"string"
+								},
+								"depend":{
+									"type":"array",
+									"items":{
+										"type":"array",
+										"items":{
+											"type":"string"
+										}
+									}
+									
+								},
+								"consume":{
+									"type":"object",
+									"description":"Mapping (resource name -> consume arity) of resources consumed by the component type.",
+									"additionalProperties":{
+										"description":"The consume arity.",
+										"type":"integer"
+									}
+									
+								},
+								"conflict":{
+									"type":"array",
+									"items":{
+										"type":"string"
+									}
+									
+								}
+								
+							},
+							"required":[
+								"name"
+							]
+							
+						}
+						
+					}
+					
+				},
+				"required":[
+					"name"
+				]
+			}
+		}
+		
+	},
+	"required":[
+		"component_types"
+	]
+	
+}
