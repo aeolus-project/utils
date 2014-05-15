@@ -9,13 +9,14 @@ Currently, we can
 Dependancies
 ------------
 
-$ pip install jsonschema
-(or python setup.py install)
+`$ pip install jsonschema`
+
+(or `python setup.py install`)
 
 
 Use it
 ------
 
-./aeolus-json.py -h
+`./aeolus-json.py -h`
 
 
