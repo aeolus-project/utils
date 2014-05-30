@@ -3,6 +3,7 @@
 	"title":"AeolusFormatSchema",
 	"description":"Input JSON schema for Aeolus Universe.",
 	"type":"object",
+        "additionalProperties": false,
 	"properties":{
 		"version":{
 			"type":"integer",
@@ -13,6 +14,7 @@
 			"type":"array",
 			"items":{
 				"type":"object",
+ 				"additionalProperties": false,
 				"properties":{
 					"name":{
 						"type":"string",
@@ -20,6 +22,7 @@
 					},
 					"consume":{
 						"type":"object",
+ 					        "additionalProperties": false,
 						"description":"Mapping (resource name -> consume arity) of resources consumed by the component type.",
 						"additionalProperties":{
 							"description":"The consume arity.",
@@ -34,6 +37,7 @@
 						"description":"List of the states of the component type.",
 						"items":{
 							"type":"object",
+ 						        "additionalProperties": false,
 							"properties":{
 								"name":{
 									"type":"string",
@@ -45,6 +49,7 @@
 								},
 								"provide":{
 									"type":"object",
+ 						                        "additionalProperties": false,
 									"description":"Mapping (port name -> provide arity).",
 									"additionalProperties":{
 										"oneOf":[
@@ -69,6 +74,7 @@
 								},
 								"require":{
 									"type":"object",
+ 						                        "additionalProperties": false,
 									"description":"Mapping (port -> require arity).",
 									"additionalProperties":{
 										"description":"The arity of the required port.",
@@ -99,7 +105,6 @@
 							"required":[
 								"name"
 							]
-							
 						}
 						
 					}
@@ -109,13 +114,13 @@
 					"name",
 					"states"
 				]
-				
 			},
 			"minItems":1,
 			"uniqueItems":true
 		},
 		"implementation":{
 			"type":"object",
+		        "additionalProperties": false,
 			"uniqueItems":true,
 			"minItems":1,
 			"description":"Implementation mapping between components and packages belonging to a repository.",
@@ -124,6 +129,7 @@
 				"description":"List of repository & package list pairs (dijunciton of possible implementations).",
 				"items":{
 					"type":"object",
+  				        "additionalProperties": false,
 					"properties":{
 						"repository":{
 							"type":"string"
@@ -137,11 +143,8 @@
 						"repository",
 						"package"
 					]
-					
 				}
-				
 			}
-			
 		},
 		"repositories":{
 			"type":"array",
@@ -150,6 +153,7 @@
 			"description":"Repositories description.",
 			"items":{
 				"type":"object",
+  			        "additionalProperties": false,
 				"properties":{
 					"name":{
 						"type":"string"
@@ -160,6 +164,7 @@
 						"minItems":1,
 						"items":{
 							"type":"object",
+   						        "additionalProperties": false,
 							"properties":{
 								"name":{
 									"type":"string"
@@ -176,6 +181,7 @@
 								},
 								"consume":{
 									"type":"object",
+    								        "additionalProperties": false,
 									"description":"Mapping (resource name -> consume arity) of resources consumed by the component type.",
 									"additionalProperties":{
 										"description":"The consume arity.",
