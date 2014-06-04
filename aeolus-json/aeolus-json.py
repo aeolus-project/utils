@@ -3,6 +3,7 @@
 import json
 from jsonschema import validate
 import jsonschema.exceptions
+import os
 
 class Port(object):
     def __init__(self, name):
@@ -147,9 +148,19 @@ class Universe(object):
 
 
 def validation(args):
-    if args.schema is not None:
-        with open(args.schema, 'r') as f:
-            schema = json.load(f)
+    if args.type == "stateful":
+        schema_file = os.path.join(
+            os.path.dirname(__file__),
+            "data/schema_universe_stateful.json")
+    elif args.type == "stateless":
+        schema_file = os.path.join(
+            os.path.dirname(__file__),
+            "data/schema_universe_stateless.json")
+
+    print "Validation is using schema '%s'..." % schema_file
+
+    with open(schema_file, 'r') as f:
+        schema = json.load(f)
 
         with open(args.json, 'r') as f:
             try:
@@ -174,10 +185,10 @@ if __name__ == "__main__":
     p_validation = subparsers.add_parser(
         'validation',
         help='Validate json file by a schema')
+    p_validation.add_argument('type', choices=['stateful', 'stateless'],
+                              help="choose the file type that has to be validated")
     p_validation.add_argument(
-        'schema', type=str, help='Schema file used for the validation')
-    p_validation.add_argument(
-        'json', type=str, help='Json file to validation')
+        'json', type=str, help="validating json file")
 
     p_validation.set_defaults(func=validation)
 
@@ -185,7 +196,7 @@ if __name__ == "__main__":
         'zephyrus',
         help='Generate zephyrus files')
     p_zephyrus.add_argument(
-        'universe', type=str, help='Universe file with automatons')
+        'universe', type=str, help='universe file with automatons')
 
     p_zephyrus.set_defaults(func=zephyrus)
 

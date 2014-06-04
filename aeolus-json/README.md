@@ -24,4 +24,4 @@ Examples
 --------
 
 - `./aeolus-json.py zephyrus examples/1lb-3wp-1db.universe-automatons.json`
-- `./aeolus-json.py validation data/input_schema.json examples/1lb-3wp-1db.universe-automatons.json`
+- `./aeolus-json.py validation stateful examples/1lb-3wp-1db.universe-automatons.json`
