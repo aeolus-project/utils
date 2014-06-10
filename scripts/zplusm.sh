@@ -30,7 +30,7 @@ function usage_and_exit()
 ################################
 # process options
 ################################
-while getopts u:c:s:md:h flag
+while getopts u:c:s:md:hp:z: flag
 do
   case "$flag" in
     u) 	  UNIVERSE_FILE="$OPTARG";;
