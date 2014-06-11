@@ -47,6 +47,10 @@
 									"type":"boolean",
 									"description":"Initial state (default = false if not present)."
 								},
+								"final":{
+									"type":"boolean",
+									"description":"Final state (default = false if not present)."
+								},
 								"provide":{
 									"type":"object",
  						                        "additionalProperties": false,
