@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import json
 import string
 from subprocess import Popen
